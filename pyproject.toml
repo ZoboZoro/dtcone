@@ -1,0 +1,13 @@
+[project]
+name = "dtcone"
+version = "0.1.0"
+description = "Building..."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "black>=26.1.0",
+    "flake8>=7.3.0",
+    "isort>=7.0.0",
+    "pandas>=3.0.0",
+    "pyarrow>=23.0.0",
+]
