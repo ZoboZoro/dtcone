@@ -1,4 +1,4 @@
-# dtcone
+<!-- # dtcone
 
 ##
 
@@ -20,4 +20,4 @@ SELECT "DOLocationID", SUM(tip_amount)  FROM green_taxi
     GROUP BY "DOLocationID", tip_amount
     ORDER BY SUM(tip_amount) DESC;
 
-```
+``` -->
