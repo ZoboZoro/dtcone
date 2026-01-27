@@ -5,7 +5,7 @@ import logging
 import pandas as pd
 from tqdm.auto import tqdm
 
-from config import dtype, engine, parse_dates, file_path
+from config import dtype, engine, file_path, lookup_path
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,10 +16,8 @@ logging.basicConfig(
 
 def ingest_parquet(
         file: str,
-        # dtype: dict,
-        # parse_dates: list,
+        table_name: str,
         engine,
-        chunksize=100000,
 ):
 
     """
@@ -28,22 +26,20 @@ def ingest_parquet(
 
     df = pd.read_parquet(
         file,
-        dtype=dtype,
-        parse_dates=parse_dates,
     )
 
 
     # Creates empty table in db
     df.head(0).to_sql(
-        name='green_taxi',
+        name=table_name,
         con=engine,
         if_exists='replace',
         )
 
 
-    # Batch load into database
+    # Load into database
     df.to_sql(
-        name='yellow_taxi',
+        name=table_name,
         con=engine,
         if_exists='append',
         )
@@ -54,6 +50,7 @@ def ingest_csv(
         file: str,
         dtype: dict,
         parse_dates: list,
+        table_name: str,
         engine,
         chunksize=100000,
 ):
@@ -62,7 +59,7 @@ def ingest_csv(
     Function to ingest csv data to postgres
     """
 
-    df = pd.read_parquet(
+    df = pd.read_csv(
         file,
         dtype=dtype,
         parse_dates=parse_dates,
@@ -71,14 +68,14 @@ def ingest_csv(
 
     # Creates empty table in db
     df.head(0).to_sql(
-        name='yellow_taxi',
+        name=table_name,
         con=engine,
         if_exists='replace',
         )
 
     # Creates df iterator
-    df_iter = pd.read_(
-        url,
+    df_iter = pd.read_csv(
+        file,
         dtype=dtype,
         parse_dates=parse_dates,
         iterator=True,
@@ -88,11 +85,12 @@ def ingest_csv(
     # Batch load into database
     for chunk in tqdm(df_iter):
         chunk.to_sql(
-            name='yellow_taxi',
+            name=table_name,
             con=engine,
             if_exists='append',
             )
         logging.info(f'writing records of {len(chunk)}')
 
 if __name__ == '__main__':
-    ingest(url, dtype, parse_dates, engine)
+    ingest_parquet(file_path, engine, able_name='green_taxi')
+    ingest_csv(lookup_path, dtype, engine, table_name='lookup_table')
