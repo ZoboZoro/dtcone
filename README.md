@@ -1,6 +1,6 @@
-<!-- # dtcone
+<!-- <!-- # dtcone -->
 
-##
+<!-- ##
 
 ```sql
 
@@ -18,6 +18,6 @@ SELECT "DOLocationID", SUM(tip_amount)  FROM green_taxi
     WHERE "PULocationID" = 74 
     AND lpep_pickup_datetime < '2025-12-01'
     GROUP BY "DOLocationID", tip_amount
-    ORDER BY SUM(tip_amount) DESC;
+    ORDER BY SUM(tip_amount) DESC; -->
 
-``` -->
+```
