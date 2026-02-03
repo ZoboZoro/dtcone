@@ -21,7 +21,7 @@ def ingest_parquet(
 ):
 
     """
-    Function to ingest data to postgres
+    Function to ingest data to postgres database
     """
 
     df = pd.read_parquet(
