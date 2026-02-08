@@ -1,6 +1,7 @@
 
 from sqlalchemy import create_engine
 
+
 pg_user = 'root'
 pg_pass = 'root'
 pg_host = 'localhost'
