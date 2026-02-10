@@ -18,3 +18,4 @@ SELECT "DOLocationID", SUM(tip_amount)  FROM green_taxi
     ORDER BY SUM(tip_amount) DESC;
 
 ```
+
