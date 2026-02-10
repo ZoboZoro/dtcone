@@ -6,10 +6,10 @@ COPY --from=docker.io/astral/uv:0.9.26 /uv /uvx /bin/
 # project's default directory in the container
 WORKDIR /app
 
-# and virtual env path to container PATH, this shortens the entrypoint arguments
+# add virtual env path to container PATH, this shortens the entrypoint arguments
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Copy project dependencies into image (similar as copying requiremnts.txt)
+# Copy project dependencies into image (same as copying requiremnts.txt)
 COPY pyproject.toml .python-version uv.lock pipeline.py ./
 
 # run uv locked to install all project dependencies into venv
